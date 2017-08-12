@@ -19,6 +19,16 @@
     mutations: {
       increment: state => state.count++,
       decrement: state => state.count--
+    },
+    actions: {
+      increment (context) {
+        context.commit('increment')
+      },
+      incrementAsync ({commit}) {
+        setTimeout(() => {
+          commit('increment')
+        }, 1000)
+      }
     }
   })
   export default {
@@ -36,7 +46,7 @@
     },
     methods: {
       increment () {
-        store.commit('increment')
+        store.dispatch('incrementAsync')
       },
       decrement () {
         store.commit('decrement')

@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Hello from '@/components/Hello'
+import Dashboard from '@/components/Dashboard'
+import Group from '@/components/Group'
 
 Vue.use(Router)
 
@@ -11,6 +13,16 @@ export default new Router({
       path: '/',
       name: 'Hello',
       component: Hello
+    },
+    {
+      path: '/dashboard',
+      name: 'Dashboard',
+      component: Dashboard
+    },
+    {
+      path: '/group',
+      name: 'Group',
+      component: Group
     }
   ]
 })
