@@ -5,9 +5,12 @@ module.exports = [
     name: 'MAIN NAVIGATION'
   },
   {
-    type: 'tree',
+    type: 'item',
     icon: 'fa fa-home',
-    name: 'Home'
+    name: 'Home',
+    router: {
+      name: 'Home'
+    }
   },
   {
     type: 'tree',
