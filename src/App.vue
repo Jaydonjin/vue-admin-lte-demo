@@ -13,14 +13,14 @@
   import VAContentWrap from './ContentWrap.vue'
   import VASlider from './Slider.vue'
   import Modal from 'va/components/Modal.vue'
-  import slideMenuItems from './lib/menu.js'
+  import menus from './lib/menu.js'
   import store from './store'
 
   export default {
     name: 'app',
     data () {
       return {
-        slideMenuItems: slideMenuItems
+        slideMenuItems: menus
       }
     },
     created () {
