@@ -1,8 +1,9 @@
 import axios from 'axios'
 import queryString from 'query-string'
 import store from '@/store'
+import { session } from '@/common'
 
-export default {
+export const user = {
   login (token) {
     let url = 'http://apis.newegg.org/framework/v1/keystone/sso-auth-data'
     let params = {
@@ -17,31 +18,25 @@ export default {
     return axios.post(url, params, config)
       .then(response => {
         if (response.status === 200) {
-          localStorage['isLogin'] = true
-          store.commit('LOGIN', response.data.UserInfo)
-          return Promise.resolve(true)
+          return Promise.resolve({success: true, userInfo: response.data.UserInfo})
         } else {
-          return Promise.resolve(false)
+          return Promise.resolve({success: false, userInfo: undefined})
         }
       })
       .catch(() => {
-        return Promise.resolve(false)
+        return Promise.resolve({success: false, userInfo: undefined})
       })
   },
   logout () {
-    sessionStorage.removeItem('isLogin')
+    session.delete('isLogin')
     store.commit('LOGIN', {})
     location.href = 'https://account.newegg.org/logout?redirect_url=' + location.protocol + location.host + location.pathname
   },
-  requireAuth (to, from, next) {
+  authorize (to, from) {
     const parsed = queryString.parse(location.search)
-    if (sessionStorage['isLogin']) {
-      // TODO(benjamn): reload information from session
-      next()
-    } else if (parsed['t']) {
-      this.login(parsed['t']).then(success => {
-        next()
-      })
+    let token = parsed['t']
+    if (token) {
+      return this.login(token)
     } else {
       let url = 'https://account.newegg.org/login?redirect_url=' + location.href
       location.href = url

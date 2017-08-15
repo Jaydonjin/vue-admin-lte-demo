@@ -14,7 +14,6 @@
   import VASlider from './Slider.vue'
   import Modal from 'va/components/Modal.vue'
   import menus from './lib/menu.js'
-  import store from './store'
 
   export default {
     name: 'app',
@@ -30,7 +29,6 @@
       'va-slider': VASlider,
       'va-content-wrap': VAContentWrap,
       Modal
-    },
-    store
+    }
   }
 </script>

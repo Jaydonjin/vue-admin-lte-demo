@@ -23,13 +23,18 @@ const mutations = {
   },
   [types.LOGIN_FAIL] (state) {
     state.info = {}
+  },
+  [types.LOGOUT] (state) {
+    state.info = {}
   }
 }
 const actions = {
-  login ({commit, state}, token) {
-    user.login(token)
-      .then((info) => commit(types.LOGIN_SUCCESS, {info}))
-      .catch(() => commit(types.LOGIN_FAIL))
+  login ({commit, state}, userInfo) {
+    commit(types.LOGIN_SUCCESS, userInfo)
+  },
+  logout ({commit, state}) {
+    commit(types.LOGOUT)
+    user.logout()
   }
 }
 

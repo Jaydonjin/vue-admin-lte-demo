@@ -3,7 +3,9 @@ import Router from 'vue-router'
 import Dashboard from '@/components/Dashboard'
 import Group from '@/components/Group'
 import Home from '@/components/Home'
-import { auth } from '@/services'
+import Demo from '@/components/Demo'
+import { user } from '@/api'
+import { session } from '@/common'
 
 Vue.use(Router)
 
@@ -15,7 +17,7 @@ const router = new Router({
       name: 'Home',
       component: Home,
       meta: {
-        auth: true
+        requiresAuth: true
       }
     },
     {
@@ -23,7 +25,7 @@ const router = new Router({
       name: 'Dashboard',
       component: Dashboard,
       meta: {
-        auth: true
+        requiresAuth: true
       }
     },
     {
@@ -31,14 +33,38 @@ const router = new Router({
       name: 'Group',
       component: Group,
       meta: {
-        auth: true
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/demo',
+      name: 'Demo',
+      component: Demo,
+      meta: {
+        requiresAuth: true
       }
     }
   ]
 })
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.auth)) {
-    auth.requireAuth(to, from, next)
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (session.get('isLogin')) {
+      let userInfo = session.get('userInfo')
+      router.app.$store.dispatch('login', userInfo)
+      next()
+    } else {
+      user.authorize(to, from)
+        .then(({success, userInfo}) => {
+          if (success === true) {
+            session.set('isLogin', true)
+            session.set('userInfo', userInfo)
+          } else {
+            // TODO(benjamin): process error
+          }
+          router.app.$store.dispatch('login', userInfo)
+          next()
+        })
+    }
   } else {
     next()
   }

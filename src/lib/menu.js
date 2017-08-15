@@ -1,4 +1,4 @@
-export default [
+module.exports = [
   {
     type: 'item',
     isHeader: true,
@@ -31,6 +31,14 @@ export default [
         name: 'Group',
         router: {
           name: 'Group'
+        }
+      },
+      {
+        type: 'item',
+        icon: 'fa fa-cube',
+        name: 'Demo',
+        router: {
+          name: 'Demo'
         }
       }
     ]

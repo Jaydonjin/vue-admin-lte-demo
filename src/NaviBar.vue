@@ -252,8 +252,7 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
-  import { auth } from '@/services'
+  import { mapGetters, mapActions } from 'vuex'
 
   export default {
     name: 'va-navibar',
@@ -266,9 +265,7 @@
       ])
     },
     methods: {
-      logout () {
-        auth.logout()
-      }
+      ...mapActions(['logout'])
     }
   }
 
