@@ -28,9 +28,9 @@ module.exports = [
       {
         type: 'item',
         icon: 'fa fa-cube',
-        name: 'Group',
+        name: 'Groups',
         router: {
-          name: 'Group'
+          name: 'Groups'
         }
       },
       {

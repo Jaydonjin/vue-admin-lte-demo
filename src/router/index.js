@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Dashboard from '@/components/Dashboard'
-import Group from '@/components/Group'
 import Home from '@/components/Home'
 import Demo from '@/components/Demo'
+import Groups from '@/components/Groups'
 import { user } from '@/api'
 import { session } from '@/common'
 
@@ -29,9 +29,9 @@ const router = new Router({
       }
     },
     {
-      path: '/group',
-      name: 'Group',
-      component: Group,
+      path: '/groups',
+      name: 'Groups',
+      component: Groups,
       meta: {
         requiresAuth: true
       }
