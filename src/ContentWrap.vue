@@ -12,7 +12,6 @@
         <li class="active">Dashboard</li>
       </ol>
     </section>
-
     <section class="content">
       <transition name="page" mode="out-in">
         <router-view></router-view>

@@ -54,10 +54,11 @@ router.beforeEach((to, from, next) => {
       next()
     } else {
       user.authorize(to, from)
-        .then(({success, userInfo}) => {
+        .then(({success, token, userInfo}) => {
           if (success === true) {
             session.set('isLogin', true)
             session.set('userInfo', userInfo)
+            session.set('token', token)
           } else {
             // TODO(benjamin): process error
           }

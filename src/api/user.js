@@ -18,7 +18,7 @@ export const user = {
     return axios.post(url, params, config)
       .then(response => {
         if (response.status === 200) {
-          return Promise.resolve({success: true, userInfo: response.data.UserInfo})
+          return Promise.resolve({success: true, token: token, userInfo: response.data.UserInfo})
         } else {
           return Promise.resolve({success: false, userInfo: undefined})
         }
