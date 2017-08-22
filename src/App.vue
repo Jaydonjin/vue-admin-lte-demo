@@ -25,6 +25,7 @@
   import menus from './lib/menu.js'
   import VueToastr from 'vue-toastr'
   import 'vue-toastr/src/vue-toastr.less'
+  import { message } from './common/message'
 
   export default {
     name: 'app',
@@ -34,6 +35,7 @@
       }
     },
     created () {
+      message.init({app: this})
     },
     components: {
       'va-navibar': VANaviBar,

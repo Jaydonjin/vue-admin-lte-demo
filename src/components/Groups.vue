@@ -56,7 +56,7 @@
   import VaInput from 'va/components/VAInput.vue'
   import VaFormGroup from 'va/components/VAFormGroup.vue'
   import { groupInfo } from '@/api'
-  import Vue from 'vue'
+  import { message } from '@/common'
 
   export default {
     name: 'Groups',
@@ -78,9 +78,7 @@
       groupInfo.all()
         .then(groups => {
           vm.groups = groups.results
-          let vm2 = Vue.component('app')
-          debugger
-          console.log(vm2)
+          message.error('init')
           vm.$root.$children[0].$refs.toastr.e('this.$refs.toastr.e message', 'Error')
         })
     },
