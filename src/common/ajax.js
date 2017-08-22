@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { message } from './message'
+// import { message } from './message'
 
 const settings = {
   baseURL: '',
@@ -26,8 +26,6 @@ const request = (method, url, data, options = {}) => {
     options.params = data
   }
   settings.requestCount++
-  debugger
-  message.error()
   return axios.request(options)
   // return axios.request(options)
   //   .then(response => {
