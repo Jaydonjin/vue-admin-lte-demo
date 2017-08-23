@@ -1,23 +1,30 @@
 import axios from 'axios'
-// import { message } from './message'
+import { message } from './message'
 
-const settings = {
+const defaults = {
   baseURL: '',
   headers: {
     'Content-Type': 'application/json'
+  },
+  noLoading: false,
+  noErrorTip: false
+}
+const counter = {
+  requestCount: 0
+}
+const shouldCloseloading = () => {
+  if (--counter.requestCount <= 0) {
+    message.loading(false)
   }
 }
-// const counter = {
-//   requestCount: 0
-// }
-// const shouldCloseloading = () => {
-//   if (--counter.requestCount <= 0) {
-//     message.loading(false)
-//   }
-// }
 
 const request = (method, url, data, options = {}) => {
-  options = Object.assign({}, settings, options, {
+  let newDefaults = Object.assign({}, defaults)
+  if (options.headers) {
+    newDefaults.headers = Object.assign(newDefaults.headers, options.headers)
+    delete options.headers
+  }
+  options = Object.assign({}, newDefaults, options, {
     url,
     method,
     data
@@ -25,32 +32,36 @@ const request = (method, url, data, options = {}) => {
   if (options.method === 'get' && data) {
     options.params = data
   }
-  settings.requestCount++
+  counter.requestCount++
+  if (!options.noLoading) {
+    message.loading()
+  }
   return axios.request(options)
-  // return axios.request(options)
-  //   .then(response => {
-  //     shouldCloseloading()
-  //     return response
-  //   })
-  //   .catch(err => {
-  //     shouldCloseloading()
-  //     if (err.response.status === 401) {
-  //       // logging
-  //       return false
-  //     }
-  //     // let errorMessage = err.response.data.message
-  //     // m
-  //   })
+    .then(response => {
+      shouldCloseloading()
+      return response
+    })
+    .catch(err => {
+      shouldCloseloading()
+      if (err.response.status === 401) {
+        // TODO(benjamin): process 401, redirect login router
+        return false
+      }
+      let errorMessage = err.response.data.message
+      if (!options.noErrorTip) {
+        message.error(errorMessage)
+      }
+      return Promise.reject(err)
+    })
 }
 
 export const ajax = {
   init ({baseURL}) {
-    settings.baseURL = baseURL
+    defaults.baseURL = baseURL
   },
   get (url, param, options) {
     return request('get', url, param, options)
   },
-
   delete (url, param, options) {
     return request('delete', url, param, options)
   },

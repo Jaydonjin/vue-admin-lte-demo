@@ -78,8 +78,6 @@
       groupInfo.all()
         .then(groups => {
           vm.groups = groups.results
-          message.error('init')
-          vm.$root.$children[0].$refs.toastr.e('this.$refs.toastr.e message', 'Error')
         })
     },
     methods: {
@@ -88,6 +86,7 @@
         groupInfo.newGroup({Name: this.current_group_name})
           .then(group => {
             vm.groups.push(group)
+            message.success('Add new group')
           })
       }
     }
