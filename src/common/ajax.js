@@ -21,7 +21,7 @@ const shouldCloseloading = () => {
 const request = (method, url, data, options = {}) => {
   let newDefaults = Object.assign({}, defaults)
   if (options.headers) {
-    newDefaults.headers = Object.assign(newDefaults.headers, options.headers)
+    newDefaults.headers = Object.assign({}, newDefaults.headers, options.headers)
     delete options.headers
   }
   options = Object.assign({}, newDefaults, options, {
@@ -43,13 +43,16 @@ const request = (method, url, data, options = {}) => {
     })
     .catch(err => {
       shouldCloseloading()
-      if (err.response.status === 401) {
-        // TODO(benjamin): process 401, redirect login router
-        return false
+      let errorMsg = err.message
+      if (err.response) {
+        if (err.response.status === 401) {
+          // TODO(benjamin): process 401, redirect login router
+          return false
+        }
+        errorMsg = err.response.data.message
       }
-      let errorMessage = err.response.data.message
       if (!options.noErrorTip) {
-        message.error(errorMessage)
+        message.error(errorMsg)
       }
       return Promise.reject(err)
     })

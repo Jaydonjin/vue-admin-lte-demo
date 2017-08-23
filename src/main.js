@@ -6,14 +6,16 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 import { ajax } from './common/ajax'
+import EventBus from './lib/eventBus.js'
 
 import 'va/lib/css'
 import 'va/lib/script'
 import './less/all.less'
 
 Vue.config.productionTip = false
+Vue.prototype.$bus = EventBus
 Vue.prototype.$http = axios
-let baseURL = 'http://localhost:8088/dfis_api/api/v1'
+let baseURL = 'http://localhost:8088/dfis_api/api/v1/'
 ajax.init({baseURL})
 
 /* eslint-disable no-new */
