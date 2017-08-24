@@ -5,12 +5,17 @@ import App from './App'
 import router from './router'
 import store from './store'
 import axios from 'axios'
-import { ajax } from './common/ajax'
+import {ajax} from './common/ajax'
 import EventBus from './lib/eventBus.js'
+import {FILTERS} from '@/filters/index'
 
 import 'va/lib/css'
 import 'va/lib/script'
 import './less/all.less'
+
+Object.keys(FILTERS).forEach((key) => {
+  Vue.filter(key, FILTERS[key])
+})
 
 Vue.config.productionTip = false
 Vue.prototype.$bus = EventBus

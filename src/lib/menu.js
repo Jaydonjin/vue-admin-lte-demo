@@ -40,6 +40,14 @@ module.exports = [
         router: {
           name: 'Demo'
         }
+      },
+      {
+        type: 'item',
+        icon: 'fa fa-cube',
+        name: 'Requests',
+        router: {
+          name: 'GroupRequests'
+        }
       }
     ]
   }

@@ -5,8 +5,9 @@ import Home from '@/components/Home'
 import Demo from '@/components/Demo'
 import Groups2 from '@/components/Groups2'
 import Group from '@/components/Group'
-import { user } from '@/api'
-import { session } from '@/common'
+import {user} from '@/api'
+import {session} from '@/common'
+import GroupRequests from '@/components/GroupRequests'
 
 Vue.use(Router)
 
@@ -49,6 +50,14 @@ const router = new Router({
       path: '/demo',
       name: 'Demo',
       component: Demo,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/requests',
+      name: 'GroupRequests',
+      component: GroupRequests,
       meta: {
         requiresAuth: true
       }

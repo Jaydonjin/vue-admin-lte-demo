@@ -27,14 +27,33 @@
     <div class="col-md-8">
       <va-box :title="type.Name" theme="box-success" :isOpen="true">
         <div slot="content">
-
+          <div class="row">
+            <div class="col-sm-4">
+              <lte-info-box text="total capacity"
+                            color="bg-purple"
+                            number="100022123"
+                            icon="fa fa-archive"></lte-info-box>
+            </div>
+            <div class="col-sm-4">
+              <lte-info-box text="total file count"
+                            color="bg-red"
+                            number="100022123"
+                            icon="fa fa-file"></lte-info-box>
+            </div>
+            <div class="col-sm-4">
+              <lte-info-box text="cpu traffic"
+                            color="bg-aqua"
+                            number="100022123"
+                            icon="ion ion-ios-gear-outline"></lte-info-box>
+            </div>
+          </div>
         </div>
         <div slot="footer">
           <div class="row">
             <div class="col-md-6">
               <button type="button"
                       class="btn btn-block btn-primary"
-                      @click="newGroup">New
+              >New
               </button>
             </div>
           </div>
@@ -63,6 +82,7 @@
   import { message } from '@/common'
   import { groupInfo } from '@/api'
   import Modal from './Modal.vue'
+  import LteInfoBox from './LteInfoBox.vue'
 
   export default {
     name: 'group',
@@ -89,7 +109,8 @@
     },
     components: {
       VaBox,
-      Modal
+      Modal,
+      LteInfoBox
     },
     mounted () {
       this.getTypes()
