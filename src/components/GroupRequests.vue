@@ -55,6 +55,9 @@
             </tbody>
           </table>
         </div>
+        <div class="box-footer clearfix">
+          <lte-pagination></lte-pagination>
+        </div>
         <!-- /.box-body -->
       </div>
     </div>
@@ -74,7 +77,7 @@
 
     <!-- New GroupRequest Form-->
     <modal v-model="newModal.shown" title="New Request"
-           @ok="onSaveGroupRequest">
+           @ok="onSaveRequest">
       <form class="form-horizontal">
         <div class="form-group">
           <label for="inputGroupName" class="col-md-2 control-label">Group</label>
@@ -111,7 +114,15 @@
           </div>
         </div>
         <div class="form-group">
-
+          <label for="inputRequestReason" class="col-md-2 control-label">Reason</label>
+          <div class="col-md-10">
+            <textarea id="inputRequestReason"
+                      rows="3"
+                      class="form-control"
+                      placeholder="Group Name"
+                      v-model="newRequest.RequestReason">
+            </textarea>
+          </div>
         </div>
       </form>
     </modal>
@@ -124,6 +135,8 @@
   import VaFormGroup from 'va/components/VAFormGroup.vue'
   import Modal from '@/components/Modal.vue'
   import {groupRequest} from '@/api'
+  import {message} from '@/common'
+  import LtePagination from '@/components/pagination.vue'
 
   export default {
     name: 'GroupRequests',
@@ -148,14 +161,15 @@
           TypeName: '',
           IsSpecial: false,
           IsPublic: false,
-          Reason: ''
+          RequestReason: ''
         }
       }
     },
     components: {
       VaBox,
       VaFormGroup,
-      Modal
+      Modal,
+      LtePagination
     },
     mounted () {
       this.all()
@@ -163,13 +177,10 @@
     methods: {
       all () {
         let vm = this
-        groupRequest.all()
+        groupRequest.all(1, 2)
           .then(response => {
             vm.requests = response.results
           })
-      },
-      onSaveRequest () {
-        console.log('save')
       },
       onRejectRequest (group, index) {
         let vm = this
@@ -195,6 +206,14 @@
       onNewRequest () {
         let vm = this
         vm.newModal.shown = true
+      },
+      onSaveRequest () {
+        let vm = this
+        groupRequest.add(vm.newRequest)
+          .then(response => {
+            message.success('Add request success')
+            vm.all()
+          })
       }
     }
   }

@@ -1,14 +1,8 @@
-import { ajax, session } from '../common'
+import {ajax} from '../common'
 
 export const groupInfo = {
   all () {
-    let token = session.get('token')
-    return ajax.get('/group_infos', {}, {
-      headers: {
-        'authorization': 'Bearer ' + token,
-        'Content-Type': 'Application/json'
-      }
-    })
+    return ajax.get('/group_infos')
       .then(response => {
         if (response.status === 200) {
           return Promise.resolve(response.data)
@@ -17,13 +11,8 @@ export const groupInfo = {
       })
   },
   newGroup (entity) {
-    let token = session.get('token')
     let url = entity.ID ? '/group_info/' + entity.ID : '/group_infos'
-    return ajax.post(url, entity, {
-      headers: {
-        'Authorization': 'Bearer ' + token
-      }
-    })
+    return ajax.post(url, entity)
       .then(response => {
         if (response.status === 200) {
           return Promise.resolve(response.data)
@@ -32,24 +21,12 @@ export const groupInfo = {
       })
   },
   deleteGroup (groupId) {
-    // TODO(benjamin): process authorization
-    let token = session.get('token')
-    debugger
     let url = '/group_info/' + groupId
-    return ajax.delete(url, undefined, {
-      headers: {
-        'Authorization': 'Bearer ' + token
-      }
-    })
+    return ajax.delete(url)
   },
   getGroup (groupId) {
-    let token = session.get('token')
     let url = '/group_info/' + groupId
-    return ajax.get(url, undefined, {
-      headers: {
-        'Authorization': 'Bearer ' + token
-      }
-    })
+    return ajax.get(url)
       .then(response => {
         if (response.status === 200) {
           return Promise.resolve(response.data)
@@ -58,13 +35,8 @@ export const groupInfo = {
       })
   },
   getGroupTypes (groupId) {
-    let token = session.get('token')
     let url = '/group_info/' + groupId + '/types'
-    return ajax.get(url, undefined, {
-      headers: {
-        'Authorization': 'Bearer ' + token
-      }
-    })
+    return ajax.get(url)
       .then(response => {
         if (response.status === 200) {
           return Promise.resolve(response.data)

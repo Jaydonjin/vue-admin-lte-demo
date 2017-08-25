@@ -1,5 +1,6 @@
 import axios from 'axios'
-import { message } from './message'
+import {message} from './message'
+import {session} from './storage'
 
 const defaults = {
   baseURL: '',
@@ -19,7 +20,10 @@ const shouldCloseloading = () => {
 }
 
 const request = (method, url, data, options = {}) => {
+  let token = session.get('token')
+  let headers = {'Authorization': 'Bearer ' + token}
   let newDefaults = Object.assign({}, defaults)
+  newDefaults.headers = Object.assign(newDefaults.headers, headers)
   if (options.headers) {
     newDefaults.headers = Object.assign({}, newDefaults.headers, options.headers)
     delete options.headers
