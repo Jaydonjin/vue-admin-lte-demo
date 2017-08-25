@@ -4,6 +4,11 @@
       <div class="box">
         <div class="box-header">
           <h3 class="box-title">Group Requests</h3>
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-danger btn-sm" @click="onNewRequest"><i class="fa fa-plus"></i>
+              New Request
+            </button>
+          </div>
         </div>
         <!-- /.box-header -->
         <div class="box-body no-padding">
@@ -54,7 +59,7 @@
       </div>
     </div>
 
-    <!-- Group Form-->
+    <!-- GroupRequest Form-->
     <modal v-model="modal.shown" :title="modal.title"
            @ok="onSaveGroupRequest">
       <va-form-group>
@@ -65,7 +70,52 @@
                v-model="request.Comment">
       </va-form-group>
     </modal>
-    <!-- ./Group Form-->
+    <!-- ./GroupRequest Form-->
+
+    <!-- New GroupRequest Form-->
+    <modal v-model="newModal.shown" title="New Request"
+           @ok="onSaveGroupRequest">
+      <form class="form-horizontal">
+        <div class="form-group">
+          <label for="inputGroupName" class="col-md-2 control-label">Group</label>
+          <div class="col-md-10">
+            <input id="inputGroupName"
+                   class="form-control"
+                   placeholder="Group Name"
+                   v-model="newRequest.GroupName">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputTypeName" class="col-md-2 control-label">Type</label>
+          <div class="col-md-10">
+            <input id="inputTypeName"
+                   class="form-control"
+                   placeholder="Type Name"
+                   v-model="newRequest.TypeName">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-offset-2 col-md-3">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" v-model="newRequest.IsSpecial"> Special
+              </label>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" v-model="newRequest.IsPublic"> Public
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+
+        </div>
+      </form>
+    </modal>
+    <!-- ./GroupRequest Form-->
   </div>
 </template>
 
@@ -79,6 +129,9 @@
     name: 'GroupRequests',
     data () {
       return {
+        newModal: {
+          shown: false
+        },
         modal: {
           shown: false,
           title: ''
@@ -88,7 +141,15 @@
           Comment: '',
           index: 0
         },
-        requests: []
+        requests: [],
+        newRequest: {
+          Id: 0,
+          GroupName: '',
+          TypeName: '',
+          IsSpecial: false,
+          IsPublic: false,
+          Reason: ''
+        }
       }
     },
     components: {
@@ -130,6 +191,10 @@
           .then(response => {
             vm.requests.splice(vm.request.index, 1, response)
           })
+      },
+      onNewRequest () {
+        let vm = this
+        vm.newModal.shown = true
       }
     }
   }
