@@ -15,8 +15,8 @@
       </ol>
     </section>
     <section class="content">
-      <transition name="page" mode="out-in">
-        <router-view></router-view>
+      <transition name="slide-left" mode="out-in">
+        <router-view class="child-view"></router-view>
       </transition>
     </section>
     <!-- /.content -->
@@ -34,11 +34,23 @@
 </script>
 
 <style>
-  .page-enter-active, .page-leave-active {
-    transition: opacity 0.5s, transform 0.5s;
+  .child-view {
+    left: 15px;
+    right: 15px;
+    transition: all .5s cubic-bezier(.55, 0, .1, 1);
   }
 
-  .page-enter, .page-leave-to {
+  .slide-left-enter,
+  .slide-right-leave-active {
     opacity: 0;
+    -webkit-transform: translate(30px, 0);
+    transform: translate(30px, 0);
+  }
+
+  .slide-left-leave-active,
+  .slide-right-enter {
+    opacity: 0;
+    -webkit-transform: translate(-30px, 0);
+    transform: translate(-30px, 0);
   }
 </style>

@@ -260,8 +260,8 @@
           type: ''
         },
         searchRange: {
-          start: moment().toDate(),
-          end: moment().add(2, 'd').toDate()
+          start: null,
+          end: null
         }
       }
     },
@@ -271,6 +271,13 @@
       Modal,
       LtePagination,
       LteDateRangePicker
+    },
+    created () {
+      let start = new Date()
+      this.searchRange.start = start = new Date(start.getFullYear(), start.getMonth())
+      this.searchRange.end = moment(start).add(1, 'months')
+        .subtract(1, 'd')
+        .toDate()
     },
     mounted () {
       this.all()

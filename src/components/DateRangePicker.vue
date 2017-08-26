@@ -30,7 +30,6 @@
       }
     },
     mounted () {
-      console.log(this.value)
       $('#' + this.id).daterangepicker({
         startDate: this.value.start,
         endDate: this.value.end
