@@ -15,7 +15,7 @@
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
-        <va-slide-item
+        <lte-slide-item
           v-for="item in slideMenuItems"
           :type="item.type"
           :isHeader="item.isHeader"
@@ -26,7 +26,7 @@
           :router="item.router"
           :link="item.link"
         >
-        </va-slide-item>
+        </lte-slide-item>
       </ul>
     </section>
     <!-- /.sidebar -->
@@ -34,8 +34,8 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
-  import VASlideItem from 'va/components/VASlideItem'
+  import {mapGetters} from 'vuex'
+  import LteSlideItem from './components/SlideItem'
 
   export default {
     name: 'va-slider',
@@ -53,8 +53,6 @@
         'currentUser'
       ])
     },
-    components: {
-      'va-slide-item': VASlideItem
-    }
+    components: {LteSlideItem}
   }
 </script>

@@ -19,7 +19,7 @@ module.exports = [
     items: [
       {
         type: 'item',
-        icon: 'fa fa-dashboard',
+        icon: 'fa fa-circle-o text-green',
         name: 'Dashboard',
         router: {
           name: 'Dashboard'
@@ -27,7 +27,7 @@ module.exports = [
       },
       {
         type: 'item',
-        icon: 'fa fa-cube',
+        icon: 'fa fa-circle-o text-green',
         name: 'Groups',
         router: {
           name: 'Groups'
@@ -35,7 +35,7 @@ module.exports = [
       },
       {
         type: 'item',
-        icon: 'fa fa-cube',
+        icon: 'fa fa-circle-o text-green',
         name: 'Demo',
         router: {
           name: 'Demo'
@@ -43,7 +43,7 @@ module.exports = [
       },
       {
         type: 'item',
-        icon: 'fa fa-cube',
+        icon: 'fa fa-circle-o text-green',
         name: 'Requests',
         router: {
           name: 'GroupRequests'

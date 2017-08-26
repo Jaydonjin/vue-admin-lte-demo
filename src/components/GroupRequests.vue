@@ -2,6 +2,7 @@
   <div>
     <div class="row">
       <div class="col-md-12">
+        <!-- Search Panel-->
         <div class="box box-primary">
           <div class="box-header with-border">
             <h3 class="box-title">Search</h3>
@@ -11,7 +12,6 @@
             </div>
           </div>
           <form class="form-horizontal">
-
             <div class="box-body">
               <div class="row">
                 <div class="col-md-3">
@@ -48,7 +48,26 @@
                   </div>
                 </div>
               </div>
-
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label">Group</label>
+                    <div class="col-sm-8">
+                      <input v-model="searchParam.group" class="form-control"
+                             placeholder="Group Name">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label">Type</label>
+                    <div class="col-sm-8">
+                      <input v-model="searchParam.type" class="form-control"
+                             placeholder="Type Name">
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </form>
           <div class="box-footer">
@@ -57,6 +76,7 @@
             </button>
           </div>
         </div>
+        <!-- ./Search Panel-->
       </div>
     </div>
     <div class="row">
@@ -71,7 +91,7 @@
             </div>
           </div>
           <!-- /.box-header -->
-          <div class="box-body no-padding">
+          <div class="box-body">
             <table class="table table-condensed">
               <tbody>
               <tr>
@@ -231,11 +251,13 @@
         pagination: {
           page: 1,
           totalCount: 0,
-          pageSize: 2
+          pageSize: 20
         },
         searchParam: {
           name: '',
-          status: -1
+          status: -1,
+          group: '',
+          type: ''
         },
         searchRange: {
           start: moment().toDate(),
