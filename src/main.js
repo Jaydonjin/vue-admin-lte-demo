@@ -12,6 +12,8 @@ import {FILTERS} from '@/filters/index'
 import 'va/lib/css'
 import 'va/lib/script'
 import './less/all.less'
+import './lib/css'
+import './lib/script'
 
 Object.keys(FILTERS).forEach((key) => {
   Vue.filter(key, FILTERS[key])

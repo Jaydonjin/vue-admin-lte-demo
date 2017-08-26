@@ -1,67 +1,130 @@
 <template>
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="box">
-        <div class="box-header">
-          <h3 class="box-title">Group Requests</h3>
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-danger btn-sm" @click="onNewRequest"><i class="fa fa-plus"></i>
-              New Request
+  <div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">Search</h3>
+            <div class="box-tools pull-right">
+              <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+              </button>
+            </div>
+          </div>
+          <form class="form-horizontal">
+
+            <div class="box-body">
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="inputUserName" class="col-sm-4 control-label">User Name</label>
+                    <div class="col-sm-8">
+                      <input v-model="searchParam.name" class="form-control" id="inputUserName"
+                             placeholder="Short Login Name">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="selectStatus" class="col-sm-4 control-label">Status</label>
+                    <div class="col-sm-8">
+                      <select v-model="searchParam.status" class="form-control" id="selectStatus">
+                        <option value="-1">All</option>
+                        <option value="0">Applying</option>
+                        <option value="1">Approved</option>
+                        <option value="2">Reject</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="dtRequestDate" class="col-sm-2 control-label">Date</label>
+                    <div class="col-sm-10">
+                      <lte-date-range-picker id="dtRequestDate"
+                                             v-model="searchRange">
+
+                      </lte-date-range-picker>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </form>
+          <div class="box-footer">
+            <button type="button" class="btn btn-primary pull-right"
+                    @click="onSearchClick">Search
             </button>
           </div>
         </div>
-        <!-- /.box-header -->
-        <div class="box-body no-padding">
-          <table class="table table-condensed">
-            <tbody>
-            <tr>
-              <th style="width: 10px">#</th>
-              <th>Group/Type</th>
-              <th>IsPublic</th>
-              <th>IsSpecial</th>
-              <th>Request User</th>
-              <th>Request Date</th>
-              <th>Request Reason</th>
-              <th>Status</th>
-              <th>Last Edit User</th>
-              <th>Last Edit Date</th>
-              <th style="width: 40px">Operations</th>
-            </tr>
-            <tr v-for="(req, index) in requests">
-              <td>{{index + 1}}.</td>
-              <td>{{req.GroupName}}/{{req.TypeName}}</td>
-              <td>{{req.IsPublic}}</td>
-              <td>{{req.IsSpecial}}</td>
-              <td>{{req.RequestUser}}</td>
-              <td>{{req.RequestDate | date}}</td>
-              <td>{{req.RequestReason}}</td>
-              <td>{{req.Status | status}}</td>
-              <td>{{req.LastEditUser}}</td>
-              <td>{{req.LastEditDate | date}}</td>
-              <!-- Operation Column -->
-              <td style="width: 200px">
-                <div class="btn-group" v-if="!req.Status">
-                  <button type="button" class="btn btn-default btn-xs" @click="onRejectRequest(req)"><i
-                    class="fa fa-edit"></i>
-                    Reject
-                  </button>
-                  <button type="button" class="btn btn-default btn-xs" @click="onApproveRequest(req)"><i
-                    class="fa fa-minus"></i> Approve
-                  </button>
-                </div>
-              </td>
-              <!-- ./Operation Column -->
-            </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="box-footer clearfix">
-          <lte-pagination></lte-pagination>
-        </div>
-        <!-- /.box-body -->
       </div>
     </div>
-
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="box box-primary with-border">
+          <div class="box-header">
+            <h3 class="box-title">Group Requests</h3>
+            <div class="box-tools pull-right">
+              <button type="button" class="btn btn-success btn-sm" @click="onNewRequest"><i class="fa fa-plus"></i>
+                New Request
+              </button>
+            </div>
+          </div>
+          <!-- /.box-header -->
+          <div class="box-body no-padding">
+            <table class="table table-condensed">
+              <tbody>
+              <tr>
+                <th style="width: 10px">#</th>
+                <th style="width: 200px">Group/Type</th>
+                <th style="width: 50px">IsPublic</th>
+                <th style="width: 50px">IsSpecial</th>
+                <th style="width: 100px">Request User</th>
+                <th style="width: 100px">Request Date</th>
+                <th>Request Reason</th>
+                <th style="width: 50px">Status</th>
+                <th style="width: 100px">Last Edit User</th>
+                <th style="width: 100px">Last Edit Date</th>
+                <th style="width: 40px">Operations</th>
+              </tr>
+              <tr v-for="(req, index) in requests">
+                <td>{{index + 1}}.</td>
+                <td>{{req.GroupName}}/{{req.TypeName}}</td>
+                <td>{{req.IsPublic}}</td>
+                <td>{{req.IsSpecial}}</td>
+                <td>{{req.RequestUser}}</td>
+                <td>{{req.RequestDate | date}}</td>
+                <td>{{req.RequestReason}}</td>
+                <td>{{req.Status | status}}</td>
+                <td>{{req.LastEditUser}}</td>
+                <td>{{req.LastEditDate | date}}</td>
+                <!-- Operation Column -->
+                <td style="width: 200px">
+                  <div class="btn-group" v-if="!req.Status">
+                    <button type="button" class="btn btn-default btn-xs" @click="onRejectRequest(req)"><i
+                      class="fa fa-edit"></i>
+                      Reject
+                    </button>
+                    <button type="button" class="btn btn-default btn-xs" @click="onApproveRequest(req)"><i
+                      class="fa fa-minus"></i> Approve
+                    </button>
+                  </div>
+                </td>
+                <!-- ./Operation Column -->
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="box-footer clearfix">
+            <lte-pagination size="sm"
+                            :pageSize="pagination.pageSize"
+                            :totalCount="pagination.totalCount"
+                            @page="onPage"></lte-pagination>
+          </div>
+          <!-- /.box-body -->
+        </div>
+      </div>
+    </div>
     <!-- GroupRequest Form-->
     <modal v-model="modal.shown" :title="modal.title"
            @ok="onSaveGroupRequest">
@@ -131,12 +194,14 @@
 </template>
 
 <script>
+  import moment from 'moment'
   import VaBox from 'va/widgets/VABox'
   import VaFormGroup from 'va/components/VAFormGroup.vue'
   import Modal from '@/components/Modal.vue'
   import {groupRequest} from '@/api'
   import {message} from '@/common'
   import LtePagination from '@/components/pagination.vue'
+  import LteDateRangePicker from '@/components/DateRangePicker.vue'
 
   export default {
     name: 'GroupRequests',
@@ -162,6 +227,19 @@
           IsSpecial: false,
           IsPublic: false,
           RequestReason: ''
+        },
+        pagination: {
+          page: 1,
+          totalCount: 0,
+          pageSize: 2
+        },
+        searchParam: {
+          name: '',
+          status: -1
+        },
+        searchRange: {
+          start: moment().toDate(),
+          end: moment().add(2, 'd').toDate()
         }
       }
     },
@@ -169,7 +247,8 @@
       VaBox,
       VaFormGroup,
       Modal,
-      LtePagination
+      LtePagination,
+      LteDateRangePicker
     },
     mounted () {
       this.all()
@@ -177,9 +256,11 @@
     methods: {
       all () {
         let vm = this
-        groupRequest.all(1, 2)
+        let params = Object.assign({}, vm.pagination, vm.searchParam, vm.searchRange)
+        groupRequest.all(params)
           .then(response => {
             vm.requests = response.results
+            vm.pagination.totalCount = response.count
           })
       },
       onRejectRequest (group, index) {
@@ -214,6 +295,16 @@
             message.success('Add request success')
             vm.all()
           })
+      },
+      onPage (currentPage) {
+        this.pagination.page = currentPage
+        this.all()
+      },
+      onSelected (startDate, endDate) {
+        console.log(startDate, endDate)
+      },
+      onSearchClick () {
+        this.all()
       }
     }
   }

@@ -1,8 +1,9 @@
 import {ajax} from '@/common'
 
 export const groupRequest = {
-  all (page = 1, pageSize = 20) {
-    return ajax.get('/group_requests', {page: page, per_page: pageSize})
+  all (params) {
+    params['per_page'] = params.pageSize || 20
+    return ajax.get('/group_requests', params)
       .then(response => {
         if (response.status === 200) {
           return Promise.resolve(response.data)
