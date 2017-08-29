@@ -22,7 +22,8 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" @click="cancel">{{cancelText}}</button>
-          <button type="button" class="btn btn-primary" @click="ok">{{okText}}</button>
+          <button type="button" class="btn btn-primary" @click="ok">{{okText}}
+          </button>
         </div>
       </div>
     </div>
@@ -54,7 +55,7 @@
     },
     methods: {
       ok (evt) {
-        this.$emit('input', false)
+//        this.$emit('input', false)
         this.$emit('ok', evt)
       },
       cancel (evt) {

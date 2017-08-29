@@ -161,14 +161,19 @@
     <!-- New GroupRequest Form-->
     <modal v-model="newModal.shown" title="New Request"
            @ok="onSaveRequest">
-      <form class="form-horizontal">
+      <form class="form-horizontal" data-vv-scope="newRequest">
         <div class="form-group">
           <label for="inputGroupName" class="col-md-2 control-label">Group</label>
           <div class="col-md-10">
             <input id="inputGroupName"
+                   name="groupName"
                    class="form-control"
+                   :class="{'input': true, 'is-danger': errors.has('newRequest.groupName') }"
                    placeholder="Group Name"
+                   v-validate="'required|alpha_num'"
                    v-model="newRequest.GroupName">
+            <span v-show="errors.has('newRequest.groupName')"
+                  class="help is-danger">{{ errors.first('newRequest.groupName') }}</span>
           </div>
         </div>
         <div class="form-group">
@@ -176,8 +181,13 @@
           <div class="col-md-10">
             <input id="inputTypeName"
                    class="form-control"
+                   name="typeName"
+                   :class="{'input': true, 'is-danger': errors.has('newRequest.typeName') }"
                    placeholder="Type Name"
+                   v-validate="'required|alpha_num'"
                    v-model="newRequest.TypeName">
+            <span v-show="errors.has('newRequest.typeName')"
+                  class="help is-danger">{{ errors.first('newRequest.typeName') }}</span>
           </div>
         </div>
         <div class="form-group">
@@ -202,9 +212,15 @@
             <textarea id="inputRequestReason"
                       rows="3"
                       class="form-control"
+                      name="reason"
                       placeholder="Group Name"
+                      :class="{'textarea': true, 'is-danger': errors.has('newRequest.reason') }"
+                      v-validate="'required'"
                       v-model="newRequest.RequestReason">
             </textarea>
+
+            <span v-show="errors.has('newRequest.reason')" class="help is-danger">{{ errors.first('newRequest.reason')
+              }}</span>
           </div>
         </div>
       </form>
@@ -316,14 +332,26 @@
       onNewRequest () {
         let vm = this
         vm.newModal.shown = true
+        vm.newRequest.GroupName = ''
+        vm.newRequest.TypeName = ''
+        vm.newRequest.IsPublic = false
+        vm.newRequest.IsSpecial = false
+        vm.newRequest.RequestReason = ''
+        vm.errors.clear('newRequest')
       },
       onSaveRequest () {
         let vm = this
-        groupRequest.add(vm.newRequest)
-          .then(response => {
-            message.success('Add request success')
-            vm.all()
-          })
+        vm.$validator.validateAll('newRequest').then((result) => {
+          if (result) {
+            groupRequest.add(vm.newRequest)
+              .then(response => {
+                message.success('Add request success')
+                vm.all()
+              })
+          } else {
+            message.error(vm.errors.all('newRequest'))
+          }
+        })
       },
       onPage (currentPage) {
         this.pagination.page = currentPage

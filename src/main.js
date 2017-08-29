@@ -8,12 +8,15 @@ import axios from 'axios'
 import {ajax} from './common/ajax'
 import EventBus from './lib/eventBus.js'
 import {FILTERS} from '@/filters/index'
+import VeeValidate from 'vee-validate'
 
 import 'va/lib/css'
 import 'va/lib/script'
 import './less/all.less'
 import './lib/css'
 import './lib/script'
+
+Vue.use(VeeValidate)
 
 Object.keys(FILTERS).forEach((key) => {
   Vue.filter(key, FILTERS[key])
