@@ -36,6 +36,14 @@ module.exports = [
       {
         type: 'item',
         icon: 'fa fa-circle-o text-green',
+        name: 'Groups Old',
+        router: {
+          name: 'GroupsOld'
+        }
+      },
+      {
+        type: 'item',
+        icon: 'fa fa-circle-o text-green',
         name: 'Demo',
         router: {
           name: 'Demo'

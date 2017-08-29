@@ -3,7 +3,8 @@ import Router from 'vue-router'
 import Dashboard from '@/components/Dashboard'
 import Home from '@/components/Home'
 import Demo from '@/components/Demo'
-import Groups2 from '@/components/Groups2'
+import Groups from '@/components/Groups2'
+import Groups3 from '@/components/Groups3'
 import Group from '@/components/Group'
 import {user} from '@/api'
 import {session} from '@/common'
@@ -33,7 +34,15 @@ const router = new Router({
     {
       path: '/groups',
       name: 'Groups',
-      component: Groups2,
+      component: Groups3,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/groups_old',
+      name: 'GroupsOld',
+      component: Groups,
       meta: {
         requiresAuth: true
       }
