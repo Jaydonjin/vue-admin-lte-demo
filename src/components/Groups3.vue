@@ -8,6 +8,11 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body no-padding">
+          <div class="row">
+            <div class="col-md-12">
+              <input placeholder="Filters"  style="margin-left: 10px;"/>
+            </div>
+          </div>
           <ul class="nav nav-stacked">
             <li v-for="(group, index) in groups">
               <a href="#" @click="selectGroup(group)">{{group.FileGroup}}/{{group.FileType}}</a>
