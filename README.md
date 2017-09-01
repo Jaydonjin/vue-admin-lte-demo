@@ -1,6 +1,6 @@
-# dfis-portal-vue
+# portal-vue
 
-> dfis portal
+> portal
 
 ## Build Setup
 
